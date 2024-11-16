@@ -1,0 +1,173 @@
+CREATE TABLE user (
+    ID VARCHAR(100) PRIMARY KEY ,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    contact_no VARCHAR(15),
+    password VARCHAR(255) NOT NULL
+);
+
+INSERT INTO user (ID,name, email, contact_no, password) VALUES
+('US1','Aminul Islam', 'aminul.islam@example.com', '01711111111', 'password123'),
+('US2','Farzana Akter', 'farzana.akter@example.com', '01712222222', 'password123'),
+('US3','Tanvir Hossain', 'tanvir.hossain@example.com', '01713333333', 'password123'),
+('US4','Shamima Sultana', 'shamima.sultana@example.com', '01714444444', 'password123'),
+('US5','Mahmudul Hasan', 'mahmudul.hasan@example.com', '01715555555', 'password123'),
+('US6','Nasrin Jahan', 'nasrin.jahan@example.com', '01716666666', 'password123'),
+('US7','Hasan Mahmud', 'hasan.mahmud@example.com', '01717777777', 'password123'),
+('US8','Sumaiya Rahman', 'sumaiya.rahman@example.com', '01718888888', 'password123'),
+('US9','Jamal Uddin', 'jamal.uddin@example.com', '01719999999', 'password123'),
+('US10','Razia Begum', 'razia.begum@example.com', '01710000000', 'password123'),
+('US11','Shafiqur Rahman', 'shafiqur.rahman@example.com', '01711111222', 'password123'),
+('US12','Mouly Akter', 'mouly.akter@example.com', '01712222333', 'password123'),
+('US13','Shamim Ahmed', 'shamim.ahmed@example.com', '01713333444', 'password123'),
+('US14','Shahana Begum', 'shahana.begum@example.com', '01714444555', 'password123'),
+('US15','Rashed Khan', 'rashed.khan@example.com', '01715555666', 'password123'),
+('US16','Fatema Tuz Zohra', 'fatema.zohra@example.com', '01716666777', 'password123'),
+('US17','Nafis Alam', 'nafis.alam@example.com', '01717777888', 'password123'),
+('US18','Shoma Akter', 'shoma.akter@example.com', '01718888999', 'password123'),
+('US19','Rezaul Karim', 'rezaul.karim@example.com', '01719999000', 'password123'),
+('US20','Nurjahan Begum', 'nurjahan.begum@example.com', '01710000111', 'password123');
+
+CREATE TABLE staff (
+    ID VARCHAR(100) PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Email VARCHAR(100) UNIQUE NOT NULL,
+    Phone_Number VARCHAR(20),
+    password VARCHAR(50)
+);
+INSERT INTO staff (ID,Name, Email, Phone_Number,password)
+VALUES
+    ('Sf101','Abhijit Roy', 'abhijit.roy@example.com', '01818182745','password123'),
+    ('Sf102','Mita Chy', 'mita.chy@example.com', '01729384756','password123'),
+    ('Sf103','Sanjeeb Kapoor', 'sanjeeb.kapoor@example.com', '01630495867','password123'),
+    ('Sf104','Joya Mukherjee', 'joya.mukherjee@example.com', '01741597678','password123'),
+    ('Sf105','Ashikul Islam', 'ashikul.islam@example.com', '01852608989','password123'),
+    ('Sf106','Moni Banik', 'moni.banik@example.com', '01863719090','password123'),
+    ('Sf107','Noor Mohammed', 'noor.mohammed@example.com', '01974820101','password123'),
+    ('Sf108','Farzana Ahmed', 'farzana.ahmed@example.com', '01685931212','password123'),
+    ('Sf109','Rahimin Rahman', 'rahimin.rahman@example.com', '01696042323','password123'),
+    ('Sf110','Sharmin Akhtar', 'sharmin.akhtar@example.com', '01807153434','password123');
+
+
+CREATE TABLE CustomerCare (
+    ID VARCHAR(100) PRIMARY KEY,
+    Hotline_Number VARCHAR(20),
+    FOREIGN KEY (ID) REFERENCES staff(ID) ON DELETE CASCADE
+);
+INSERT INTO CustomerCare (ID, Hotline_Number)
+VALUES
+    ('Sf102','1800-222-3456'),
+    ('Sf104','1800-333-4567'),
+    ('Sf106','1800-444-5678'),
+    ('Sf108','1800-555-6789'),
+    ('Sf110','1800-666-7890');
+
+
+CREATE TABLE manager (
+    ID VARCHAR(100) PRIMARY KEY,
+    FOREIGN KEY (ID) REFERENCES staff(ID) ON DELETE CASCADE
+);
+INSERT INTO manager (ID)
+VALUES
+    ('Sf101'),
+    ('Sf103'),
+    ('Sf105'),
+    ('Sf107'),
+    ('Sf109');
+
+CREATE TABLE deliveryman (
+    ID VARCHAR(100) PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Phone_Number VARCHAR(20),
+    Email VARCHAR(100) UNIQUE,
+    Manager_ID VARCHAR(100),
+    password VARCHAR(50),
+    FOREIGN KEY (Manager_ID) REFERENCES manager(ID)
+);
+INSERT INTO deliveryman (ID,Name, Phone_Number, Email, Manager_ID,password)
+VALUES
+    ('DM101', 'Amit Roy', '01711122334', 'amit.roy@delivery.com','Sf101','password123'),
+    ('DM102', 'Ravi Saha', '01822233445', 'ravi.saha@delivery.com','Sf103','password123'),
+    ('DM103','Arun Das', '01933344556', 'arun.das@delivery.com','Sf105','password123'),
+    ('DM104','Raj Khan', '01744455667', 'raj.khan@delivery.com', 'Sf101','password123'),
+    ('DM105','Ehsan Ahmed', '01855566778', 'ehsan.ahmed@delivery.com','Sf103','password123'),
+    ('DM106','Fariha Islam', '01966677889', 'fariha.islam@delivery.com','Sf105','password123'),
+    ('DM107','Golam Mustafa', '01777788990', 'golam.mustafa@delivery.com','Sf109','password123'),
+    ('DM108','Hassan Akter', '01888899001', 'hassan.akter@delivery.com', 'Sf107','password123'),
+    ('DM109','Imran Hossain', '01999900112', 'imran.hossain@delivery.com', 'Sf107','password123'),
+    ('DM110','Jay Rahman', '01700011223', 'jay.rahman@delivery.com','Sf103','password123');
+
+
+CREATE TABLE parcel(
+    parcel_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id VARCHAR(50),
+    sender_number VARCHAR(15) NOT NULL,
+    sender_name VARCHAR(50),
+    pickup_location VARCHAR(255) NOT NULL,
+    weight DECIMAL(10, 2) NOT NULL,
+    receiver_name VARCHAR(100) NOT NULL,
+    receiver_number VARCHAR(15) NOT NULL,
+    delivery_location VARCHAR(255) NOT NULL,
+    parcel_type VARCHAR(50) NOT NULL,
+    deliveryman_id VARCHAR(50),
+    FOREIGN KEY (user_id) REFERENCES User(ID) ON DELETE CASCADE,
+    FOREIGN KEY (deliveryman_id) REFERENCES deliveryman(ID) ON DELETE CASCADE
+);
+
+
+INSERT INTO parcel (user_id, sender_name, sender_number, pickup_location, weight, receiver_name, receiver_number, delivery_location, parcel_type,deliveryman_id) VALUES
+('US1', 'Aminul Islam', '01711111111', 'Uttara, Dhaka', 2.5, 'Farzana Akter', '01712222222', 'Dhanmondi, Dhaka', 'Documents','DM101'),
+('US2', 'Farzana Akter', '01712222222', 'Banani, Dhaka', 5.0, 'Shamima Sultana', '01714444444', 'Mirpur, Dhaka', 'Electronics','DM102'),
+('US5', 'Mahmudul Hasan', '01715555555', 'Gulshan, Dhaka', 1.2, 'Aminul Islam', '01716666666', 'Mohammadpur, Dhaka', 'Clothing','DM103'),
+('US7', 'Farzana Akter', '01717777777', 'Bashundhara, Dhaka',.8, 'Sumaiya Rahman', '01718888888', 'Farmgate, Dhaka', 'Books','DM104'),
+('US9', 'Jamal Uddin', '01719999999', 'Tejgaon, Dhaka', 4.5, 'Farzana Akter', '01712222222', 'Shahbagh, Dhaka', 'Grocery','DM105'),
+('US11', 'Shafiqur Rahman', '01711111222', 'Banasree, Dhaka', 2.1, 'Farzana Akter', '01712222333', 'Paltan, Dhaka', 'Cosmetics','DM106'),
+('US13', 'Shamim Ahmed', '01713333444', 'Shantinagar, Dhaka', 3.0, 'Shahana Begum', '01714444555', 'Moghbazar, Dhaka', 'Food','DM107'),
+('US15', 'Rashed Khan', '01715555666', 'Khilgaon, Dhaka', 6.7, 'Fatema Tuz Zohra', '01716666777', 'Malibagh, Dhaka', 'Furniture','DM108'),
+('US2', 'Farzana Akter', '01712222222', 'Jatrabari, Dhaka', 1.5, 'Farzana Akter', '01718888999', 'Motijheel, Dhaka', 'Accessories','DM109'),
+('US19', 'Rezaul Karim', '01719999000', 'Old Dhaka, Dhaka', 4.0, 'Aminul Islam', '01710000111', 'Wari, Dhaka', 'Home Appliances','DM110');
+
+
+CREATE TABLE delivery (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Status ENUM('In Progress', 'Completed', 'Cancelled') NOT NULL,
+    Parcel_ID INT,                            
+    Delivery_Location VARCHAR(255) NOT NULL,    
+    Pickup_Location VARCHAR(255) NOT NULL,      
+    Delivery_Time DATETIME,         
+    deliveryman_id VARCHAR(50),
+    FOREIGN KEY (Parcel_ID) REFERENCES parcel(parcel_id),
+    FOREIGN KEY (deliveryman_id) REFERENCES deliveryman(ID)  
+);
+
+INSERT INTO Delivery (Status, Parcel_ID, Delivery_Location, Pickup_Location, Delivery_Time,deliveryman_id)
+VALUES
+    ('In Progress', 1, 'Dhanmondi, Dhaka', 'Uttara, Dhaka', '2024-09-20 10:00:00','DM101'),
+    ('In Progress', 2, 'Mirpur, Dhaka', 'Banani, Dhaka', '2024-09-21 11:00:00','DM103'),
+    ('In Progress', 3, 'Mohammadpur, Dhaka', 'Gulshan, Dhaka', '2024-09-22 12:00:00','DM101'),
+    ('In Progress', 4, 'Farmgate, Dhaka', 'Bashundhara, Dhaka', '2024-09-23 13:00:00','DM102'),
+    ('In Progress', 5, 'Shahbagh, Dhaka', 'Tejgaon, Dhaka', '2024-09-24 14:00:00','DM103'),
+    ('In Progress', 6, 'Paltan, Dhaka', 'Banasree, Dhaka', '2024-09-25 15:00:00','DM105'),
+    ('In Progress', 7, 'Moghbazar, Dhaka', 'Shantinagar, Dhaka', '2024-09-26 16:00:00','DM104'),
+    ('Completed', 8, 'Malibagh, Dhaka', 'Khilgaon, Dhaka', '2024-09-27 17:00:00','DM102'),
+    ('In Progress', 9, 'Motijheel, Dhaka', 'Jatrabari, Dhaka', '2024-09-28 18:00:00','DM104'),
+    ('Cancelled', 10, 'Wari, Dhaka', 'Old Dhaka, Dhaka', '2024-09-29 19:00:00','DM103');
+
+CREATE TABLE Transaction (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Status ENUM('Done', 'Pending') NOT NULL,
+    Parcel_ID INT,
+    FOREIGN KEY (Parcel_ID) REFERENCES parcel(parcel_id)
+);
+INSERT INTO transaction (Status, Parcel_ID)
+VALUES
+    ('Pending', 1),
+    ('Pending', 2),
+    ('Done', 3),
+    ('Pending', 4),
+    ('Done', 5),
+    ('Pending', 6),
+    ('Pending', 7),
+    ('Pending', 8),
+    ('Done', 9),
+    ('Pending', 10);
